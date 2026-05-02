@@ -18,7 +18,7 @@ export default function Home() {
 
         <div className="mt-12 mb-4">
           <p className="font-serif text-sage-deep text-lg tracking-wide">
-            Friday, May 14, 2026
+            Friday, May 14, 2027
           </p>
           <p className="font-serif italic text-sage text-base mt-1">
             Jeju, South Korea
