@@ -1,12 +1,12 @@
 @import "tailwindcss";
 
 @theme {
-  --color-cream: #F7F1E5;
+  --color-cream: #f9f9f9;
   --color-cream-deep: #EFE6D0;
   --color-sage: #8FA68C;
   --color-sage-deep: #6B8068;
   --color-sage-light: #C4D0BD;
-  --color-coral: #D97757;
+  --color-coral: #e68543;
   --color-coral-deep: #B85D40;
   --color-gold: #C9A961;
   --color-ink: #2D3A2C;
@@ -29,7 +29,7 @@ html {
 }
 
 body {
-  background-color: #F7F1E5;
+  background-color: #f9f9f9;
   color: #6B8068;
   font-family: var(--font-cormorant), Georgia, serif;
   font-size: 17px;

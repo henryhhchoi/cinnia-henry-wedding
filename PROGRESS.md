@@ -44,38 +44,134 @@
 
 ---
 
-## Queued: Phase 2 — Static Pages
+## Phase 2 — Static Pages ✅ Complete
 
-All content pages with placeholder copy (easy to swap for real content later).
+### What was built
 
-- **Home** — flesh out: add hero image placeholder, intro paragraph, finalize hero layout
-- **Schedule** (`/schedule`) — day headers in Pinyon Script, EventBlock components per event, "Add to calendar" coral buttons
+- **Home** (`/`) — hero names in Pinyon Script, date/location, hero image (dog photo, `public/images/hero.jpeg`, rendered via `next/image` with `fill` + `object-cover`), RSVP CTA button
+- **Schedule** (`/schedule`) — Pinyon Script day headers, `EventBlock` component, "Add to Calendar" buttons stub-linked to `/api/calendar?event=X`
   - Thu May 13: Welcome Dinner (venue TBD)
-  - Fri May 14: The Actual Wedding at Seaes Hotel & Resort (+ any other events)
-- **Travel** (`/travel`) — two-column flight layout, ICN/GMP → CJU routing, accommodation overview, taxi/rental car, passport/visa, currency tips
-- **Things To Do** (`/things-to-do`) — AttractionCard components (circular photo, Pinyon Script name, serif description, View button)
-  - Seogwipo Jeongbang Waterfall (confirmed)
-  - Additional cards TBD
-- **FAQs** (`/faqs`) — stacked Pinyon Script question / serif answer pairs, no accordion
-  - RSVP by: December 1, 2026
-  - Dress code: Semi-formal
-  - Food allergies: Yes, of course
-  - Additional Q&A TBD
+  - Fri May 14: Ceremony & Reception at Seaes Hotel & Resort
+- **Travel** (`/travel`) — three vertically-stacked sections (Flight, Hotel, Shuttle), each with a line-drawing SVG icon, small serif label, Pinyon Script name, and centered prose description
+  - Hotel: Yak Maeul, 162 Saekdaljungang-ro, 특별자치도, Seogwipo-si
+  - Shuttle: Yak Maeul → Seaes, May 15 2027 4:30 pm
+- **Things To Do** (`/things-to-do`) — `AttractionCard` component; 8 cards across 4 labeled categories (Scenic Spots, Food & Drink, Beaches, Cultural Sites); circular sage-light placeholder images ready to swap
+- **FAQs** (`/faqs`) — 9 Q&A pairs; questions in Pinyon Script, answers in serif; stacked, no accordion
+- **`/api/calendar` stub** — returns 501 JSON; keeps "Add to Calendar" buttons from 404ing; shape ready for Phase 4
 
-**Review gate:** all pages render with placeholder content; Travel two-col stacks on mobile; FAQ pairs look clean.
+### New components
+
+| Component | Path |
+|---|---|
+| `EventBlock` | `src/components/schedule/EventBlock.tsx` |
+| `AttractionCard` | `src/components/things-to-do/AttractionCard.tsx` |
+| `TravelSection` | inline in `src/app/travel/page.tsx` |
+
+### Refinements after initial build
+
+| What | Change |
+|---|---|
+| Background color | `#F7F1E5` → `#fcf8f5` → `#f9f9f9` (user wanted flatter white) |
+| Button color | `#D97757` → `#e68543` |
+| Home hero | Placeholder box replaced with real photo (`IMG_2701.jpeg`) |
+| Home blurb | "We're so glad you're here…" paragraph removed |
+| Schedule tagline | "We can't wait to celebrate with you." → "What to expect. Weeee." |
+| Schedule event cards | Removed `bg-cream-deep` background box; events sit flat on page |
+| Schedule event titles | Color changed from `text-ink` to `text-sage` (matches script font) |
+| Travel page | Fully redesigned: old multi-section prose layout replaced with 3-section icon+script layout matching screenshot |
+| Travel tagline | Updated to "Eek, thank you so much for making the 10+ hour journey to celebrate with us. Heart." |
+| Things To Do tagline | Updated to "Eat, see, eat again. Our favourite restaurants, sights and more." |
+| Metadata year | Fixed `2026` → `2027` in `layout.tsx` description |
 
 ---
 
-## Queued: Phase 3 — Decorative SVGs
+## Phase 3 — Decorative SVGs ✅ Complete
 
-Jeju-inspired motif library, each as a React component with `size` + `className` props:
+### SVG asset files (`public/decorative/`)
 
-- **Wave divider** — sage/gold, centered between sections
-- **Tangerine** — coral-orange accent, corner flourish or bullet substitute
-- **Canola flower** — gold blossoms, botanical line-drawing style, section breaks
-- **Dol Hareubang** — appears **once only** on the site (Home page corner accent)
+To replace any motif, drop a new file with the same name — no code changes needed.
 
-Style target: organic/textured line-drawing feel, not flat icons.
+| File | Source | viewBox |
+|---|---|---|
+| `wave-divider.svg` | Generated | 160×24 |
+| `tangerine.svg` | Generated | 40×44 |
+| `canola-flower-1.svg` | User-supplied | 91×139 |
+| `canola-flower-2.svg` | User-supplied | 87×196 |
+| `canola-flower-3.svg` | User-supplied | 100×155 |
+| `dol-hareubang.svg` | User-supplied | 980×980 |
+
+### React wrapper components (`src/components/decorative/`)
+
+| Component | Props | Notes |
+|---|---|---|
+| `WaveDivider` | `size`, `className` | `size` = width; height auto-scales |
+| `Tangerine` | `size`, `className` | |
+| `CanolaFlower` | `variant` (1\|2\|3), `size`, `className` | Routes to the correct numbered SVG |
+| `DolHareubang` | `size`, `className` | |
+| `index.ts` | — | Re-exports all four |
+
+### Fixed background composition (`src/components/layout/SiteBackground.tsx`)
+
+A **Server Component** that reads all five SVG files at render time via `fs.readFileSync`, strips XML preamble, normalises each SVG to `width="100%"`, and renders them inline into a `fixed inset-0 z-[-1] pointer-events-none overflow-hidden` container. Page content scrolls over it.
+
+**Desktop composition (14 florals + hareubang):**
+
+| Motif | Position | Size |
+|---|---|---|
+| canola-3 | top-left corner, cut off | 90px |
+| canola-1 | inner top-left | 78px |
+| tangerine | nestled top-left | 36px |
+| canola-1 | top-right corner, cut off | 95px |
+| canola-3 | inner top-right | 75px |
+| canola-1 | left side mid | 80px |
+| tangerine | left side lower | 34px |
+| canola-2 | right side upper | 80px |
+| tangerine | right side mid | 34px |
+| canola-2 | right side lower | 72px |
+| canola-3 | right lower-right | 70px |
+| canola-3 | bottom-left | 78px |
+| tangerine | bottom-left | 34px |
+| canola-1 | bottom-left, partially cropped | 85px |
+| dol-hareubang | bottom-right, partially cropped, 70% opacity | 140px |
+
+Mobile reduces to ~7 florals at smaller sizes; desktop-only elements use `hidden md:block`.
+
+### WaveDivider placements (content separators, not background)
+
+| Page | Where |
+|---|---|
+| Home | Between hero image and RSVP CTA |
+| Schedule | Between Thursday and Friday day sections |
+| Travel | Between each of the three travel sections |
+| Things To Do | Below each category label (`CategoryDivider`) |
+| FAQs | Between each Q&A pair |
+| Footer | Above the tagline on every page |
+
+### Refinements made during Phase 3
+
+| What | Change |
+|---|---|
+| Canola SVGs | Replaced generated SVG with 3 user-supplied variants (canola-flower-1/2/3) |
+| Dol-hareubang SVG | Replaced generated silhouette with user-supplied illustration |
+| Inline → background | Replaced all per-page inline CanolaFlower clusters with the fixed SiteBackground; WaveDividers kept as content dividers |
+| Hareubang position | Moved from bottom-left to bottom-right; halved size (280px → 140px desktop) |
+| Top-centre canola | Removed (was overlapping with "Cinnia & Henry" wordmark in nav) |
+| Bottom florals | Moved from bottom-right to bottom-left to clear hareubang corner |
+| Density | Increased ~1.25× by adding 3 new background elements |
+| Home "and" | Removed inline tangerines flanking the word |
+| FAQs questions | Changed font from Pinyon Script → Cormorant Garamond |
+
+---
+
+## Queued: Phase 3 Refinements
+
+Background composition tuning (pick up next session before starting Phase 4):
+
+- **Position / size tweaks** — review on real devices; adjust individual motif coordinates, rotations, and sizes as needed
+- **Opacity tuning** — hareubang currently 70%; canola/tangerines currently 100% — may want to soften if they compete with content on content-heavy pages
+- **Mobile review** — verify the 7-floral mobile layout doesn't obscure any text, especially on narrow viewports (375px)
+- **Scroll behaviour** — confirm `z-index: -1` is sufficient on all pages; check that the fixed background doesn't cause a white flash on page transition
+- Any other visual tweaks before declaring Phase 3 fully done
 
 ---
 
@@ -84,7 +180,7 @@ Style target: organic/textured line-drawing feel, not flat icons.
 - `src/lib/airtable.ts` — typed wrappers for Guests + RSVPs tables
 - `POST /api/guest-lookup` — normalize name → Levenshtein fuzzy match (≤ 2 edits) → return party or 404
 - `POST /api/rsvp` — Zod validation → write RSVPs row (timestamp, source IP, guest ref, meal choices, dietary, special requests)
-- `GET /api/calendar?event=X` — stream `.ics` file (custom generator, no library)
+- `GET /api/calendar?event=X` — replace 501 stub with real `.ics` file generator (no library)
 - All secrets server-side only — zero Airtable key in client bundle
 
 ---
@@ -103,7 +199,7 @@ Multi-step client shell (`app/rsvp/page.tsx`):
 ## Queued: Phase 6 — Lodging Gate
 
 - Name-lookup gate (reuses `/api/guest-lookup`)
-- On success: Seaes Hotel & Resort overview + guest's room assignment + roommates
+- On success: Yak Maeul overview + guest's room assignment + roommates
 - "Reset" clears state back to the prompt
 - State in React only (ephemeral by design — no cookie/localStorage)
 
@@ -115,7 +211,6 @@ Multi-step client shell (`app/rsvp/page.tsx`):
 - Accessibility: `alt` on all images, visible focus rings (sage outline), keyboard nav through RSVP steps, `aria-label` on icon-only elements
 - Open Graph meta tags: `og:title`, `og:description`, `og:image`
 - Favicon + apple-touch-icon
-- `next/image` sizing + priority on hero
 - Lighthouse ≥ 90 mobile performance; zero axe violations
 
 ---
@@ -130,10 +225,10 @@ Multi-step client shell (`app/rsvp/page.tsx`):
 
 ## Still needed from you
 
-- Real copy for each page (Travel, Things To Do, FAQs, etc.)
-- Hero photos and attraction images
+- Attraction photos for Things To Do cards (currently gray placeholder circles)
+- Dinner venue name and time (currently TBD on Schedule page)
+- Ceremony and dinner start times (currently TBD)
 - Final guest list uploaded to Airtable
 - Airtable base ID + API key (for `.env.local` and Vercel)
 - Custom domain name
-- Dinner venue (currently TBD)
 - Any additional schedule events beyond the welcome dinner and ceremony

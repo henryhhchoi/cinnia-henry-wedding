@@ -1,5 +1,6 @@
+import Image from "next/image";
 import Button from "@/components/ui/Button";
-import Link from "next/link";
+import { WaveDivider } from "@/components/decorative";
 
 export default function Home() {
   return (
@@ -9,9 +10,7 @@ export default function Home() {
         <h1 className="font-script text-sage leading-none" style={{ fontSize: "clamp(4rem, 12vw, 7.5rem)" }}>
           Cinnia Lee
         </h1>
-        <p className="font-serif italic text-sage-deep text-xl md:text-2xl mt-8 mb-8">
-          and
-        </p>
+        <p className="font-serif italic text-sage-deep text-xl md:text-2xl mt-8 mb-8">and</p>
         <h1 className="font-script text-sage leading-none" style={{ fontSize: "clamp(4rem, 12vw, 7.5rem)" }}>
           Henry Choi
         </h1>
@@ -26,17 +25,18 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Divider */}
-      <div className="w-24 h-px bg-sage-light mb-16" />
+      {/* Hero image */}
+      <div className="w-full max-w-2xl mb-16 rounded-lg overflow-hidden relative aspect-[4/3]">
+        <Image
+          src="/images/hero.jpeg"
+          alt="Cinnia and Henry"
+          fill
+          className="object-cover"
+          priority
+        />
+      </div>
 
-      {/* Short intro */}
-      <section className="max-w-xl text-center mb-16 px-4">
-        <p className="font-serif text-sage-deep">
-          We&rsquo;re so glad you&rsquo;re here. This site has everything you need to know
-          about our wedding weekend in Jeju. More details to come soon — in the
-          meantime, don&rsquo;t forget to RSVP!
-        </p>
-      </section>
+      <WaveDivider size={180} className="mb-16" />
 
       {/* CTA */}
       <div className="mb-32">
