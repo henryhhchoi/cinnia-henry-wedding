@@ -28,7 +28,8 @@ export default function SiteBackground() {
   const f2 = loadSvg("canola-flower-2.svg");
   const f3 = loadSvg("canola-flower-3.svg");
   const tn = loadSvg("tangerine.svg");
-  const hb = loadSvg("dol-hareubang.svg");
+  const hb = loadSvg("dol-hareubang.svg")
+    .replace(/viewBox="0 0 980 980"/i, 'viewBox="0 0 980 885"');
 
   return (
     <div
@@ -76,10 +77,15 @@ export default function SiteBackground() {
         style={{ top: "30%", left: -18, transform: "rotate(-8deg)" }}
         dangerouslySetInnerHTML={{ __html: f1 }}
       />
-      {/* Lower tangerine — desktop only */}
+      {/* Lower canola + tangerine pair — desktop only */}
+      <div
+        className="absolute hidden md:block md:w-[72px]"
+        style={{ top: "56%", left: -14, transform: "rotate(-6deg)" }}
+        dangerouslySetInnerHTML={{ __html: f2 }}
+      />
       <div
         className="absolute hidden md:block md:w-[34px]"
-        style={{ top: "60%", left: 16 }}
+        style={{ top: "67%", left: 18 }}
         dangerouslySetInnerHTML={{ __html: tn }}
       />
 
@@ -132,7 +138,7 @@ export default function SiteBackground() {
       {/* ── HAREUBANG — bottom-right, half size, slightly cropped ── */}
       <div
         className="absolute w-[90px] md:w-[140px]"
-        style={{ bottom: 0, right: -10, opacity: 0.7 }}
+        style={{ bottom: 0, right: -10, opacity: 0.7, lineHeight: 0 }}
         dangerouslySetInnerHTML={{ __html: hb }}
       />
     </div>

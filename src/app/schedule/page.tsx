@@ -40,7 +40,7 @@ export default function SchedulePage() {
           <div key={day.date}>
             {i > 0 && (
               <div className="flex justify-center my-16 md:my-24">
-                <WaveDivider />
+                <WaveDivider size={120} />
               </div>
             )}
             <h2

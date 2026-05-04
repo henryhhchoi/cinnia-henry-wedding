@@ -163,15 +163,14 @@ Mobile reduces to ~7 florals at smaller sizes; desktop-only elements use `hidden
 
 ---
 
-## Queued: Phase 3 Refinements
+## Phase 3 Refinements ✅ Complete
 
-Background composition tuning (pick up next session before starting Phase 4):
-
-- **Position / size tweaks** — review on real devices; adjust individual motif coordinates, rotations, and sizes as needed
-- **Opacity tuning** — hareubang currently 70%; canola/tangerines currently 100% — may want to soften if they compete with content on content-heavy pages
-- **Mobile review** — verify the 7-floral mobile layout doesn't obscure any text, especially on narrow viewports (375px)
-- **Scroll behaviour** — confirm `z-index: -1` is sufficient on all pages; check that the fixed background doesn't cause a white flash on page transition
-- Any other visual tweaks before declaring Phase 3 fully done
+| What | Change |
+|---|---|
+| Shuttle date | Fixed typo: May 15 → May 14 in `travel/page.tsx` |
+| Left-side tangerine | Added `canola-2` above it in `SiteBackground.tsx` so the tangerine isn't isolated |
+| Wave dividers | Standardized all to `size={120}` — Home was 180, Schedule was default (160), FAQs was 100; Travel/Things To Do/Footer were already 120 |
+| Hareubang alignment | SVG viewBox cropped from `0 0 980 980` → `0 0 980 885` to trim ~106 units of internal whitespace below the figure; combined with `lineHeight: 0` on the container so `bottom: 0` now sits flush with the viewport bottom |
 
 ---
 

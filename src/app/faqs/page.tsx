@@ -53,7 +53,7 @@ export default function FAQsPage() {
           <div key={i}>
             {i > 0 && (
               <div className="flex justify-center my-12">
-                <WaveDivider size={100} />
+                <WaveDivider size={120} />
               </div>
             )}
             <div className="text-center">

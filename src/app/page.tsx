@@ -36,7 +36,7 @@ export default function Home() {
         />
       </div>
 
-      <WaveDivider size={180} className="mb-16" />
+      <WaveDivider size={120} className="mb-16" />
 
       {/* CTA */}
       <div className="mb-32">

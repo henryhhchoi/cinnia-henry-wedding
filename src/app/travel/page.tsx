@@ -129,7 +129,7 @@ export default function TravelPage() {
           name="Shuttle from Yak Maeul to Seaes"
         >
           <p className="font-serif font-semibold text-sage-deep mb-4">
-            May 15, 2027 · 4:30 pm
+            May 14, 2027 · 4:30 pm
           </p>
           <p>
             There will be a shuttle from Yak Maeul to Seaes Hotel on the day of
