@@ -3,8 +3,8 @@
 @theme {
   --color-cream: #f9f9f9;
   --color-cream-deep: #EFE6D0;
-  --color-sage: #8FA68C;
-  --color-sage-deep: #6B8068;
+  --color-sage: #728B70;
+  --color-sage-deep: #4F6A4C;
   --color-sage-light: #C4D0BD;
   --color-coral: #e68543;
   --color-coral-deep: #B85D40;
@@ -30,7 +30,7 @@ html {
 
 body {
   background-color: #f9f9f9;
-  color: #6B8068;
+  color: #4F6A4C;
   font-family: var(--font-cormorant), Georgia, serif;
   font-size: 17px;
   line-height: 1.7;

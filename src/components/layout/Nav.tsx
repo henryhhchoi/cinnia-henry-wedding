@@ -14,6 +14,8 @@ const links = [
   { href: "/rsvp", label: "RSVP" },
 ];
 
+const wordmarkStyle = { fontSize: "clamp(2rem, 5vw, 3rem)", lineHeight: 1.2 };
+
 export default function Nav() {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
@@ -36,13 +38,57 @@ export default function Nav() {
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname.startsWith(href);
 
+  const Hamburger = ({ onClick, label }: { onClick: () => void; label: string }) => (
+    <button
+      className="flex flex-col gap-1.5 p-2 text-sage"
+      onClick={onClick}
+      aria-label={label}
+    >
+      <span
+        className={`block w-6 h-px bg-sage transition-transform origin-center ${
+          menuOpen ? "translate-y-[5px] rotate-45" : ""
+        }`}
+      />
+      <span
+        className={`block w-6 h-px bg-sage transition-opacity ${
+          menuOpen ? "opacity-0" : ""
+        }`}
+      />
+      <span
+        className={`block w-6 h-px bg-sage transition-transform origin-center ${
+          menuOpen ? "-translate-y-[9px] -rotate-45" : ""
+        }`}
+      />
+    </button>
+  );
+
   return (
     <header className="relative pt-8 pb-4 px-6 text-center">
-      {/* Wordmark */}
+
+      {/* Mobile: flex row — spacer | wordmark | hamburger — so wordmark is truly centered */}
+      <div className="flex items-center md:hidden">
+        <div className="flex-1" />
+        <Link
+          href="/"
+          className="font-script text-sage hover:text-sage-deep transition-colors whitespace-nowrap"
+          style={wordmarkStyle}
+          aria-label="Cinnia & Henry — Home"
+        >
+          Cinnia &amp; Henry
+        </Link>
+        <div className="flex-1 flex justify-end">
+          <Hamburger
+            onClick={() => setMenuOpen((o) => !o)}
+            label={menuOpen ? "Close menu" : "Open menu"}
+          />
+        </div>
+      </div>
+
+      {/* Desktop: centered wordmark */}
       <Link
         href="/"
-        className="font-script text-sage hover:text-sage-deep transition-colors"
-        style={{ fontSize: "clamp(2rem, 5vw, 3rem)", lineHeight: 1.2 }}
+        className="hidden md:inline font-script text-sage hover:text-sage-deep transition-colors"
+        style={wordmarkStyle}
         aria-label="Cinnia & Henry — Home"
       >
         Cinnia &amp; Henry
@@ -66,47 +112,20 @@ export default function Nav() {
         ))}
       </nav>
 
-      {/* Mobile hamburger button */}
-      <button
-        className="md:hidden absolute top-8 right-6 flex flex-col gap-1.5 p-2 text-sage"
-        onClick={() => setMenuOpen((o) => !o)}
-        aria-label={menuOpen ? "Close menu" : "Open menu"}
-        aria-expanded={menuOpen}
-      >
-        <span
-          className={`block w-6 h-px bg-sage transition-transform origin-center ${
-            menuOpen ? "translate-y-[5px] rotate-45" : ""
-          }`}
-        />
-        <span
-          className={`block w-6 h-px bg-sage transition-opacity ${
-            menuOpen ? "opacity-0" : ""
-          }`}
-        />
-        <span
-          className={`block w-6 h-px bg-sage transition-transform origin-center ${
-            menuOpen ? "-translate-y-[9px] -rotate-45" : ""
-          }`}
-        />
-      </button>
-
       {/* Mobile overlay nav */}
       {menuOpen && (
         <div className="fixed inset-0 z-50 bg-cream flex flex-col items-center justify-center gap-8">
-          <button
-            className="absolute top-8 right-6 flex flex-col gap-1.5 p-2 text-sage"
-            onClick={() => setMenuOpen(false)}
-            aria-label="Close menu"
-          >
-            <span className="block w-6 h-px bg-sage translate-y-[5px] rotate-45" />
-            <span className="block w-6 h-px bg-sage opacity-0" />
-            <span className="block w-6 h-px bg-sage -translate-y-[9px] -rotate-45" />
-          </button>
+          <div className="absolute top-8 right-6">
+            <Hamburger
+              onClick={() => setMenuOpen(false)}
+              label="Close menu"
+            />
+          </div>
 
           <Link
             href="/"
             className="font-script text-sage"
-            style={{ fontSize: "clamp(2rem, 5vw, 3rem)" }}
+            style={wordmarkStyle}
             onClick={() => setMenuOpen(false)}
             aria-label="Cinnia & Henry — Home"
           >

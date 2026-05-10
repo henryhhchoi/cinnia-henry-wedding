@@ -1,5 +1,5 @@
 import PageHeader from "@/components/layout/PageHeader";
-import { WaveDivider } from "@/components/decorative";
+import { WaveDivider, CanolaFlower } from "@/components/decorative";
 
 function PlaneIcon() {
   return (
@@ -71,6 +71,28 @@ function SectionDivider() {
   );
 }
 
+/* Between Flight and Hotel: a canola flower steps out of the background
+   and into the content zone — left-aligned, breaking the center axis. */
+function MotifSectionDivider() {
+  return (
+    <div className="my-16 md:my-20">
+      <div
+        style={{
+          marginLeft: 8,
+          transform: "rotate(-12deg)",
+          display: "inline-block",
+          lineHeight: 0,
+        }}
+      >
+        <CanolaFlower variant={2} size={72} className="opacity-60" />
+      </div>
+      <div className="flex justify-center mt-3">
+        <WaveDivider size={120} />
+      </div>
+    </div>
+  );
+}
+
 export default function TravelPage() {
   return (
     <div className="flex flex-col items-center px-6">
@@ -104,7 +126,8 @@ export default function TravelPage() {
           </p>
         </TravelSection>
 
-        <SectionDivider />
+        {/* Canola enters the content layer here — not background, not centered */}
+        <MotifSectionDivider />
 
         {/* Hotel */}
         <TravelSection

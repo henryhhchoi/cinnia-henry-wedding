@@ -90,33 +90,38 @@ export default function ThingsToDoPage() {
       />
 
       <div className="w-full max-w-2xl pb-24 md:pb-32">
+
+        {/* Scenic Spots: featured hero + 2-column supporting grid */}
         <CategoryDivider label="Scenic Spots" />
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-          {scenic.map((a) => (
+        <AttractionCard {...scenic[0]} featured />
+        <div className="grid grid-cols-2 gap-3 mt-4">
+          {scenic.slice(1).map((a) => (
             <AttractionCard key={a.name} {...a} />
           ))}
         </div>
 
+        {/* Food & Drink: featured hero + single supporting */}
         <CategoryDivider label="Food &amp; Drink" />
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-lg mx-auto">
-          {food.map((a) => (
+        <AttractionCard {...food[0]} featured />
+        <div className="mt-4">
+          {food.slice(1).map((a) => (
             <AttractionCard key={a.name} {...a} />
           ))}
         </div>
 
+        {/* Beaches: single featured */}
         <CategoryDivider label="Beaches" />
-        <div className="flex justify-center">
-          {beaches.map((a) => (
+        <AttractionCard {...beaches[0]} featured />
+
+        {/* Cultural Sites: featured hero + single supporting */}
+        <CategoryDivider label="Cultural Sites" />
+        <AttractionCard {...cultural[0]} featured />
+        <div className="mt-4">
+          {cultural.slice(1).map((a) => (
             <AttractionCard key={a.name} {...a} />
           ))}
         </div>
 
-        <CategoryDivider label="Cultural Sites" />
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-lg mx-auto">
-          {cultural.map((a) => (
-            <AttractionCard key={a.name} {...a} />
-          ))}
-        </div>
       </div>
     </div>
   );

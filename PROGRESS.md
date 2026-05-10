@@ -174,6 +174,57 @@ Mobile reduces to ~7 florals at smaller sizes; desktop-only elements use `hidden
 
 ---
 
+## Design Review & Visual Refinements ✅ Complete
+
+### Documents added
+
+| File | Purpose |
+|---|---|
+| `DESIGN_REVIEW.md` | Full senior-designer critique: composition, typography, palette, motif system, pacing, kitsch vs. template |
+| `V1_SNAPSHOT.md` | Verbatim source snapshot of Home, Things To Do, and Travel pages before structural changes |
+
+### Structural design recommendations executed
+
+**Rec 1 — Home page cover layout** *(implemented then reverted at user request)*
+Full-bleed hero with names overlaid on the image and RSVP moved above the fold. Reverted to the original stacked layout; snapshot in `V1_SNAPSHOT.md` if reconsidering later.
+
+**Rec 2 — Things To Do: featured + supporting hierarchy**
+- `AttractionCard` gained a `featured?: boolean` prop
+- `featured` cards: full-width landscape rectangle placeholder, large script name (`clamp(2.25rem, 5vw, 3.25rem)`), full description, `md`-size View button
+- Supporting cards: smaller circles (150px), smaller script name, compact layout
+- Page restructured: first card per category is featured, remainder in a 2-column grid (or stacked for single remaining cards)
+- Files: `src/components/things-to-do/AttractionCard.tsx`, `src/app/things-to-do/page.tsx`
+
+**Rec 3 — Motif enters content layer on Travel page**
+- Added `MotifSectionDivider` component inline in `travel/page.tsx`
+- A `CanolaFlower variant={2}` (72px, 60% opacity, rotated −12°) appears left-aligned in the content column between the Flight and Hotel sections — breaking the center axis and placing the botanical motif inside the content zone rather than behind it
+- `CanolaFlower` imported from `@/components/decorative`
+
+### Color refinement
+- `--color-sage`: `#8FA68C` → `#728B70`
+- `--color-sage-deep`: `#6B8068` → `#4F6A4C`
+- Body default color updated to match `--color-sage-deep`
+- File: `src/app/globals.css`
+
+### Background motif system overhaul (`src/components/layout/SiteBackground.tsx`)
+
+| Change | Detail |
+|---|---|
+| Fixed → scrolling | `position: fixed` → `position: absolute`; body gains `position: relative` so motifs scroll with page content |
+| Left-edge shift | Bottom-left canola (`left: 30` → `left: -10`) and lower canola (`left: 15` → `left: -10`) pulled to bleed off the left edge; top-left tangerine (`left: 20` → `left: 0`) |
+| Percentage tops → pixels | Mid-page motifs converted from viewport-percentage `top` values to fixed pixel offsets so positions are consistent across pages of different heights |
+| New mid-left canola | Existing desktop-only canola-1 at `top: 400, left: -18` made mobile-visible (around date level on Home) |
+| New mid-right tangerine | Added tangerine at `top: 430, right: 8` — mobile + desktop, pairs with the mid-left canola |
+| Top-right canola split | Single element split into mobile (`top: 100`, below nav) and desktop (`top: -18`, bleeds off corner) variants so it no longer overlaps the hamburger button |
+
+### Nav wordmark fix (`src/components/layout/Nav.tsx`)
+- Mobile header restructured from absolute-positioned hamburger to a **flex row**: `[spacer flex-1] [wordmark] [hamburger flex-1 justify-end]`
+- Wordmark is now truly centered between equal flex regions — hamburger can no longer encroach on the text
+- `whitespace-nowrap` added to wordmark to prevent wrapping at any size
+- Hamburger extracted to a shared `Hamburger` component used in both the header and the overlay
+
+---
+
 ## Queued: Phase 4 — Airtable Integration
 
 - `src/lib/airtable.ts` — typed wrappers for Guests + RSVPs tables
