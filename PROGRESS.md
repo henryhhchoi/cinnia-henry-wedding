@@ -225,6 +225,15 @@ Full-bleed hero with names overlaid on the image and RSVP moved above the fold. 
 
 ---
 
+## Hero video (`/`)
+
+- Replaced static `hero.jpeg` with `hero.mov` (1MB QuickTime/H.264)
+- Video copied to `public/videos/hero.mov`
+- `<Image>` removed; replaced with `<video autoPlay muted loop playsInline>` in `src/app/page.tsx`
+- `muted` required for cross-browser autoplay; `playsInline` prevents iOS Safari fullscreen takeover
+
+---
+
 ## Queued: Phase 4 — Airtable Integration
 
 - `src/lib/airtable.ts` — typed wrappers for Guests + RSVPs tables

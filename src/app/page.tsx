@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Button from "@/components/ui/Button";
 import { WaveDivider } from "@/components/decorative";
 
@@ -25,14 +24,15 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Hero image */}
-      <div className="w-full max-w-2xl mb-16 rounded-lg overflow-hidden relative aspect-[4/3]">
-        <Image
-          src="/images/hero.jpeg"
-          alt="Cinnia and Henry"
-          fill
-          className="object-cover"
-          priority
+      {/* Hero video */}
+      <div className="w-full max-w-2xl mb-16 rounded-lg overflow-hidden aspect-[4/3]">
+        <video
+          src="/videos/hero.mov"
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="w-full h-full object-cover"
         />
       </div>
 
